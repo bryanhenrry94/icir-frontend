@@ -41,8 +41,8 @@ export class PersonaCreateComponent implements OnInit, OnDestroy {
   constructor(
     private personaService: PersonaService,
     private alertService: AlertService,
-    private fb: FormBuilder,
     private _route: ActivatedRoute,
+    private fb: FormBuilder,
     private dialogRef: MatDialogRef<PersonaCreateComponent>,
     @Inject(MAT_DIALOG_DATA) data
   ) {

@@ -68,7 +68,6 @@ import { PersonaDetailComponent } from './modules/general/persona/persona-detail
 import { PersonaListComponent } from './modules/general/persona/persona-list/persona-list.component';
 import { PersonaCreateComponent } from './modules/general/persona/persona-create/persona-create.component';
 import { TipoMovimientoCreateComponent } from './modules/tesoreria/tipo_movimiento/tipo-movimiento-create/tipo-movimiento-create.component';
-import { TipoMovimientoUpdateComponent } from './modules/tesoreria/tipo_movimiento/tipo-movimiento-update/tipo-movimiento-update.component';
 import { TipoMovimientoDetailComponent } from './modules/tesoreria/tipo_movimiento/tipo-movimiento-detail/tipo-movimiento-detail.component';
 import { TipoMovimientoListComponent } from './modules/tesoreria/tipo_movimiento/tipo-movimiento-list/tipo-movimiento-list.component';
 import { MovimientoCajaCreateComponent } from './modules/tesoreria/movimiento_caja/movimiento-caja-create/movimiento-caja-create.component';
@@ -97,7 +96,6 @@ import { CustomHttpInterceptor } from './services/http-interceptor';
     PersonaDetailComponent,
     PersonaListComponent,
     TipoMovimientoCreateComponent,
-    TipoMovimientoUpdateComponent,
     TipoMovimientoDetailComponent,
     TipoMovimientoListComponent,
     MovimientoCajaCreateComponent,

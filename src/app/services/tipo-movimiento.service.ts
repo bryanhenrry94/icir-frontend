@@ -1,14 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ITipoMovimiento } from '../models/ITipoMovimiento';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Tipo_Accion } from '../models/Tipo_Accion';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TipoMovimientoService {
   private URL = environment.baseURL;
+
+  private tipo_accion = new BehaviorSubject<Tipo_Accion>(null);
+  _accion$ = this.tipo_accion.asObservable();
+
+  set_accion(tipo_accion: Tipo_Accion){
+    this.tipo_accion.next(tipo_accion);
+  }
 
   constructor(
     private http: HttpClient

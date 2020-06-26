@@ -13,14 +13,12 @@ import { UsuarioCreateComponent } from './modules/seguridad/usuario/usuario-crea
 import { UsuarioDetailComponent } from './modules/seguridad/usuario/usuario-detail/usuario-detail.component';
 import { CajaListComponent } from './modules/tesoreria/caja/caja-list/caja-list.component';
 import { CajaCreateComponent } from './modules/tesoreria/caja/caja-create/caja-create.component';
-import { CajaUpdateComponent } from './modules/tesoreria/caja/caja-update/caja-update.component';
 import { CajaDetailComponent } from './modules/tesoreria/caja/caja-detail/caja-detail.component';
 import { PersonaListComponent } from './modules/general/persona/persona-list/persona-list.component';
 import { PersonaCreateComponent } from './modules/general/persona/persona-create/persona-create.component';
 import { PersonaDetailComponent } from './modules/general/persona/persona-detail/persona-detail.component';
 import { TipoMovimientoListComponent } from './modules/tesoreria/tipo_movimiento/tipo-movimiento-list/tipo-movimiento-list.component';
 import { TipoMovimientoCreateComponent } from './modules/tesoreria/tipo_movimiento/tipo-movimiento-create/tipo-movimiento-create.component';
-import { TipoMovimientoUpdateComponent } from './modules/tesoreria/tipo_movimiento/tipo-movimiento-update/tipo-movimiento-update.component';
 import { TipoMovimientoDetailComponent } from './modules/tesoreria/tipo_movimiento/tipo-movimiento-detail/tipo-movimiento-detail.component';
 import { MovimientoCajaListComponent } from './modules/tesoreria/movimiento_caja/movimiento-caja-list/movimiento-caja-list.component';
 import { MovimientoCajaCreateComponent } from './modules/tesoreria/movimiento_caja/movimiento-caja-create/movimiento-caja-create.component';
@@ -48,7 +46,7 @@ const routes: Routes = [
       { path: 'cajas/detail/:id', component: CajaDetailComponent, canActivate: [AuthGuard]},
       { path: 'tipo_movimiento', component: TipoMovimientoListComponent, canActivate: [AuthGuard]},
       { path: 'tipo_movimiento/add', component: TipoMovimientoCreateComponent, canActivate: [AuthGuard]},
-      { path: 'tipo_movimiento/update/:id', component: TipoMovimientoUpdateComponent, canActivate: [AuthGuard]},
+      { path: 'tipo_movimiento/add/:id', component: TipoMovimientoCreateComponent, canActivate: [AuthGuard]},
       { path: 'tipo_movimiento/detail/:id', component: TipoMovimientoDetailComponent, canActivate: [AuthGuard]},
       { path: 'movimiento_caja', component: MovimientoCajaListComponent, canActivate: [AuthGuard]},
       { path: 'movimiento_caja/add', component: MovimientoCajaCreateComponent, canActivate: [AuthGuard]},
