@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { IPersona } from '../models/IPersona';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Tipo_Accion } from '../models/Tipo_Accion';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonaService {
-  private URL = "http://localhost:3700/api";
+  private URL = environment.baseURL;
 
   private tipo_accion = new BehaviorSubject<Tipo_Accion>(null);
   _accion$ = this.tipo_accion.asObservable();
