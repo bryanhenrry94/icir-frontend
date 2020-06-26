@@ -58,7 +58,6 @@ import { IglesiaCreateComponent } from './modules/general/iglesia/iglesia-create
 import { IglesiaListComponent } from './modules/general/iglesia/iglesia-list/iglesia-list.component';
 import { IglesiaDetailComponent } from './modules/general/iglesia/iglesia-detail/iglesia-detail.component';
 import { CajaCreateComponent } from './modules/tesoreria/caja/caja-create/caja-create.component';
-import { CajaUpdateComponent } from './modules/tesoreria/caja/caja-update/caja-update.component';
 import { CajaDetailComponent } from './modules/tesoreria/caja/caja-detail/caja-detail.component';
 import { CajaListComponent } from './modules/tesoreria/caja/caja-list/caja-list.component';
 import { UsuarioCreateComponent } from './modules/seguridad/usuario/usuario-create/usuario-create.component';
@@ -71,7 +70,6 @@ import { TipoMovimientoCreateComponent } from './modules/tesoreria/tipo_movimien
 import { TipoMovimientoDetailComponent } from './modules/tesoreria/tipo_movimiento/tipo-movimiento-detail/tipo-movimiento-detail.component';
 import { TipoMovimientoListComponent } from './modules/tesoreria/tipo_movimiento/tipo-movimiento-list/tipo-movimiento-list.component';
 import { MovimientoCajaCreateComponent } from './modules/tesoreria/movimiento_caja/movimiento-caja-create/movimiento-caja-create.component';
-import { MovimientoCajaUpdateComponent } from './modules/tesoreria/movimiento_caja/movimiento-caja-update/movimiento-caja-update.component';
 import { MovimientoCajaDetailComponent } from './modules/tesoreria/movimiento_caja/movimiento-caja-detail/movimiento-caja-detail.component';
 import { MovimientoCajaListComponent } from './modules/tesoreria/movimiento_caja/movimiento-caja-list/movimiento-caja-list.component';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -89,7 +87,6 @@ import { CustomHttpInterceptor } from './services/http-interceptor';
     IglesiaListComponent,
     IglesiaDetailComponent,
     CajaCreateComponent,
-    CajaUpdateComponent,
     CajaDetailComponent,
     CajaListComponent,
     PersonaCreateComponent,
@@ -99,7 +96,6 @@ import { CustomHttpInterceptor } from './services/http-interceptor';
     TipoMovimientoDetailComponent,
     TipoMovimientoListComponent,
     MovimientoCajaCreateComponent,
-    MovimientoCajaUpdateComponent,
     MovimientoCajaDetailComponent,
     MovimientoCajaListComponent
   ],

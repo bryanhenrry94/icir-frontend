@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { MovimientoCaja } from 'src/app/models/MovimientoCaja';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Iglesia } from 'src/app/models/Iglesia';
 import { IglesiaService } from 'src/app/services/iglesia.service';
 import { AlertService } from 'src/app/alert/services/alert.service';
@@ -12,16 +11,33 @@ import { PersonaCreateComponent } from 'src/app/modules/general/persona/persona-
 import { TipoMovimientoCreateComponent } from '../../tipo_movimiento/tipo-movimiento-create/tipo-movimiento-create.component';
 import { Persona } from 'src/app/models/Persona';
 import { PersonaService } from 'src/app/services/persona.service';
-import { NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Form, Validators, FormBuilder } from '@angular/forms';
 import { MovimientoCajaService } from 'src/app/services/movimiento-caja.service';
+import { Subscription } from 'rxjs';
+import { Tipo_Accion } from 'src/app/models/Tipo_Accion';
+import { ActivatedRoute } from '@angular/router';
+import { IPersona } from 'src/app/models/IPersona';
 
 @Component({
   selector: 'app-movimiento-caja-create',
   templateUrl: './movimiento-caja-create.component.html',
   styleUrls: ['./movimiento-caja-create.component.css']
 })
-export class MovimientoCajaCreateComponent implements OnInit {
-  movimientoCaja: MovimientoCaja;
+export class MovimientoCajaCreateComponent implements OnInit, OnDestroy {
+  private subscription: Subscription;
+  _accion: Tipo_Accion;
+
+  movimientoCajaForm: FormGroup;
+  _id: FormControl;
+  fecha: FormControl;
+  iglesia: FormControl;
+  caja: FormControl;
+  signo: FormControl;
+  tipo_movimiento: FormControl;
+  referencia: FormControl;
+  persona: FormControl;
+  valor: FormControl;
+
   iglesias: Iglesia[];
   cajas: Caja[];
   tipoMovimientos: TipoMovimiento[];
@@ -34,46 +50,97 @@ export class MovimientoCajaCreateComponent implements OnInit {
     private tipoMovimientoService: TipoMovimientoService,
     private personaService: PersonaService,
     private movimientoCajaService: MovimientoCajaService,
+    private _route: ActivatedRoute,
+    private fb: FormBuilder,
     public dialog: MatDialog
-  ) {
-    this.movimientoCaja = new MovimientoCaja();
+  )
+  {
+    this._id = new FormControl({value:'', disabled: true});
+    this.fecha = new FormControl('', Validators.required);
+    this.iglesia = new FormControl('', Validators.required);
+    this.caja = new FormControl('', Validators.required);
+    this.signo = new FormControl('', Validators.required);
+    this.tipo_movimiento = new FormControl('', Validators.required);
+    this.referencia = new FormControl('');
+    this.persona = new FormControl('');
+    this.valor = new FormControl('', Validators.required);
+
+    const _id = this._route.snapshot.paramMap.get('id');
+
+    if(_id != null){
+      this.movimientoCajaService.getMovimientoCaja(_id).subscribe(
+        res => {
+          this.movimientoCajaForm.patchValue(res);
+        }
+      )
+    }
+
+    this.subscription = this.movimientoCajaService._accion$.subscribe(
+      res => {
+        this._accion = res;
+      }
+    )
+
+    this.iglesia.valueChanges.subscribe(
+      res => {
+        this.cajaService.getCajasByIglesia(res._id).subscribe(
+          res => {
+            this.cajas = res as Caja[];
+          },
+          err => {
+            this.alertService.warn('Error: ' + err.error);
+          }
+        )
+      }
+    )
+
+    this.caja.valueChanges.subscribe(
+      res => {
+
+      }
+    )
+
+    this.signo.valueChanges.subscribe(
+      res => {
+        this.tipoMovimientoService.getTipoMovimientosBySigno(res).subscribe(
+          res => {
+            this.tipoMovimientos = res as TipoMovimiento[];
+          },
+          err => {
+            this.alertService.warn('Error: ' + err.error);
+          }
+        )
+      }
+    )
   }
 
   ngOnInit(): void {
     this.getIglesias();
     this.getPersonas();
+
+    this.movimientoCajaForm = this.fb.group({
+      '_id': this._id,
+      'fecha': this.fecha,
+      'iglesia': this.iglesia,
+      'caja': this.caja,
+      'signo': this.signo,
+      'tipo_movimiento': this.tipo_movimiento,
+      'referencia': this.referencia,
+      'persona': this.persona,
+      'valor': this.valor
+    });
+
+    if(this._accion == null) this._accion = Tipo_Accion.GRABAR;
+  }
+
+  ngOnDestroy(): void{
+    this.subscription.unsubscribe();
   }
 
   getIglesias(){
     this.iglesiaService.getIglesias().subscribe(
       res => {
         this.iglesias = res as Iglesia[];
-      },
-      err => {
-        this.alertService.warn('Error: ' + err.error);
-      }
-    )
-  }
-
-  change_iglesia(iglesia: Iglesia){
-    this.cajaService.getCajasByIglesia(iglesia._id).subscribe(
-      res => {
-        this.cajas = res as Caja[];
-      },
-      err => {
-        this.alertService.warn('Error: ' + err.error);
-      }
-    )
-  }
-
-  change_caja(caja: Caja){
-
-  }
-
-  change_radio(signo: string){
-    this.tipoMovimientoService.getTipoMovimientosBySigno(signo).subscribe(
-      res => {
-        this.tipoMovimientos = res as TipoMovimiento[];
       },
       err => {
         this.alertService.warn('Error: ' + err.error);
@@ -124,20 +191,44 @@ export class MovimientoCajaCreateComponent implements OnInit {
     });
   }
 
-  addMovimientoCaja(form: NgForm){
-    if(!form.valid) return;
+  onSubmit(){
+    switch(this._accion){
+      case Tipo_Accion.GRABAR:
+        this.addMovimientoCaja();
+      break;
 
-    console.log(this.movimientoCaja);
+      case Tipo_Accion.ACTUALIZAR:
+        this.updateMovimientoCaja();
+      break;
+    }
+  }
 
-    this.movimientoCajaService.addMovimientoCaja(this.movimientoCaja).subscribe(
+  addMovimientoCaja(){
+    this.movimientoCajaService.addMovimientoCaja(this.movimientoCajaForm.value).subscribe(
       res => {
         this.alertService.success('movimiento de caja registado con éxito');
-
-        form.resetForm();
       },
       err => {
         this.alertService.warn('Error: ' + err.error);
       }
     )
+  }
+
+  updateMovimientoCaja(){
+    this.movimientoCajaService.updateMovimientoCaja(this.movimientoCajaForm.getRawValue()).subscribe(
+      res => {
+        this.alertService.success('movimiento actualizado con éxito!');
+      }, err => {
+        this.alertService.warn('Error: ' + err.error);
+      }
+    )
+  }
+
+  comparePersonas(i1: IPersona, i2: IPersona){
+    return i1 && i2 && i1._id===i2._id;
+  }
+
+  compareItems(i1, i2) {
+    return i1 && i2 && i1.id===i2.id;
   }
 }
