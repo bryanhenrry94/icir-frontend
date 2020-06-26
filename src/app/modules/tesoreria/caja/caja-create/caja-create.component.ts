@@ -123,7 +123,7 @@ export class CajaCreateComponent implements OnInit {
     )
   }
 
-  onSubmit(form: NgForm){
+  onSubmit(){
     switch(this._accion){
       case Tipo_Accion.GRABAR:
         this.addCaja();
@@ -133,8 +133,6 @@ export class CajaCreateComponent implements OnInit {
         this.updateCaja();
       break;
     }
-
-    form.resetForm();
   }
 
   addCaja(){

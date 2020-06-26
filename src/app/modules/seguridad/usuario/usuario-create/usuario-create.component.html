@@ -5,7 +5,7 @@
 
 <hr>
 
-<form #form="ngForm" [formGroup]="usuarioForm" (submit)="onSubmit(form)">
+<form [formGroup]="usuarioForm" (submit)="onSubmit()">
 
   <mat-card>
     <mat-card-header>
@@ -73,7 +73,7 @@
     <mat-divider></mat-divider>
 
     <mat-card-actions>
-      <button type="submit" mat-raised-button color="accent" [disabled]="!form.valid">
+      <button type="submit" mat-raised-button color="accent" [disabled]="!usuarioForm.valid">
         <mat-icon>save</mat-icon>
         Guardar
       </button>

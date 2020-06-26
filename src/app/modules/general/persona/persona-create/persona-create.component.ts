@@ -120,7 +120,7 @@ export class PersonaCreateComponent implements OnInit, OnDestroy {
     )
   }
 
-  onSubmit(form: NgForm){
+  onSubmit(){
     switch(this._accion){
       case Tipo_Accion.GRABAR:
         this.addPersona();
@@ -130,8 +130,6 @@ export class PersonaCreateComponent implements OnInit, OnDestroy {
         this.updatePersona();
       break;
     }
-
-    form.resetForm();
   }
 
   addPersona(){

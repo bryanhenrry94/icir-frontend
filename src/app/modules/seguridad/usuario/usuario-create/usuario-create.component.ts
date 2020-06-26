@@ -74,7 +74,7 @@ export class UsuarioCreateComponent implements OnInit {
     if(this._accion == null) this._accion = Tipo_Accion.GRABAR;
   }
 
-  onSubmit(form: NgForm){
+  onSubmit(){
     switch(this._accion){
       case Tipo_Accion.GRABAR:
         this.addUser();
@@ -84,8 +84,6 @@ export class UsuarioCreateComponent implements OnInit {
         this.updateUser();
       break;
     }
-
-    form.resetForm();
   }
 
   addUser(){

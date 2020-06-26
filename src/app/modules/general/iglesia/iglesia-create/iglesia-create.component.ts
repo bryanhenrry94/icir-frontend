@@ -85,7 +85,7 @@ export class IglesiaCreateComponent implements OnInit {
     if(this._accion == null) this._accion = Tipo_Accion.GRABAR;
   }
 
-  onSubmit(form: NgForm){
+  onSubmit(){
     switch(this._accion){
       case Tipo_Accion.GRABAR:
         this.addIglesia();
@@ -95,8 +95,6 @@ export class IglesiaCreateComponent implements OnInit {
         this.updateIglesia();
       break;
     }
-
-    form.resetForm();
   }
 
   addIglesia(){
