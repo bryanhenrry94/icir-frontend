@@ -1,0 +1,53 @@
+<mat-nav-list>
+  <div class="profile-card">
+    <div class="header">
+      <h2> {{ user.nombre }} </h2>
+      <h4> {{ user.email }} </h4>
+    </div>
+
+    <!--
+      <img src="../../../../assets/img/avatar profile.jpg">
+    -->
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <h2 matSubheader>Mantenimientos</h2>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="dashboard">
+    <mat-icon>dashboard</mat-icon>
+    Dashboard
+  </a>
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="iglesias">
+    <mat-icon>home</mat-icon>
+    Iglesias
+  </a>
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="personas">
+    <mat-icon>family_restroom</mat-icon>
+    Personas
+  </a>
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="usuarios">
+    <mat-icon>people</mat-icon>
+    Usuarios
+  </a>
+
+  <mat-divider></mat-divider>
+
+  <h2 matSubheader>Tesoreria</h2>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="cajas">
+    <mat-icon>attach_money</mat-icon>
+    Cajas
+  </a>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="tipo_movimiento">
+    <mat-icon>more</mat-icon>
+    Tipo Movimiento
+  </a>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="movimiento_caja">
+    <mat-icon>money</mat-icon>
+    Movimientos de Caja
+  </a>
+
+</mat-nav-list>

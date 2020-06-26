@@ -1,0 +1,110 @@
+<div class="button-row">
+  <button mat-button routerLink="/home" routerLinkActive="active">Home</button>
+  <button mat-button routerLink="/home/iglesias" routerLinkActive="active">Iglesias</button>
+</div>
+
+<hr>
+
+<form #form="ngForm" [formGroup]="iglesiaForm" (submit)="onSubmit(form)">
+
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image">
+        <img src="../../../../assets/img/avatar profile.jpg" width="50px" height="50px">
+      </div>
+      <mat-card-title>Mantenimiento Iglesia</mat-card-title>
+      <mat-card-subtitle>ID: {{_id.value}}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-4" style="padding-right: 50px;">
+            <div class="row">
+              <mat-form-field style="width: 100%;">
+                <input matInput type="text" formControlName="nombre" placeholder="Nombre">
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field style="width: 100%;">
+                <input matInput type="text" formControlName="direccion" placeholder="Dirección">
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field>
+                <input matInput type="number" formControlName="codigo" placeholder="Código">
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field>
+                <input matInput type="number" formControlName="codigo_postal" placeholder="Código Postal">
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field>
+                <mat-label>Fecha Creación</mat-label>
+                <input matInput [matDatepicker]="fecha" formControlName="fecha_creacion">
+                <mat-datepicker-toggle matSuffix [for]="fecha"></mat-datepicker-toggle>
+                <mat-datepicker #fecha></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-sm-4" style="padding-right: 50px;">
+            <div class="row">
+              <mat-form-field style="width: 100%;">
+                <input matInput type="text" formControlName="pastor" placeholder="Pastor">
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field>
+                <input matInput type="email" formControlName="email" placeholder="Email">
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field>
+                <input matInput type="text" formControlName="telefono" placeholder="Teléfono">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-sm-4" style="padding-right: 50px;">
+            <div class="row">
+              <mat-form-field>
+                <input matInput type="text" formControlName="whatsapp" placeholder="Whatsapp">
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field>
+                <input matInput type="text" formControlName="website" placeholder="Sitio Web">
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field>
+                <input matInput type="text" formControlName="facebook" placeholder="Facebook">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-actions>
+      <button type="submit" mat-raised-button color="accent" [disabled]="!iglesiaForm.valid">
+        <mat-icon>save</mat-icon>
+        Guardar
+      </button>
+    </mat-card-actions>
+
+  </mat-card>
+
+</form>

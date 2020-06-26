@@ -1,0 +1,71 @@
+<div class="button-row">
+  <button mat-button routerLink="/home" routerLinkActive="active">Home</button>
+  <button mat-button routerLink="/home/iglesias" routerLinkActive="active">Iglesias</button>
+</div>
+
+<hr>
+
+<mat-card class="container-fluid">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image">
+      <img src="../../../../assets/img/avatar profile.jpg" width="50px" height="50px">
+    </div>
+    <mat-card-title style="text-align: center;">{{ iglesia.nombre }}</mat-card-title>
+    <mat-card-subtitle>ID: {{iglesia._id}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item>
+        <mat-label style="width: 100px;">Código: </mat-label>
+        <mat-label> {{iglesia.codigo}} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 100px;">Dirección: </mat-label>
+        <mat-label> {{iglesia.direccion}} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 100px;">Código Postal: </mat-label>
+        <mat-label> {{iglesia.codigo_postal}} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 100px;">Fecha Creación: </mat-label>
+        <mat-label> {{iglesia.fecha_creacion}} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 100px;">Pastor: </mat-label>
+        <mat-label> {{iglesia.pastor}} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 100px;">Email: </mat-label>
+        <mat-label> {{iglesia.email}} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 100px;">Teéfono: </mat-label>
+        <mat-label> {{iglesia.telefono}} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 100px;">Whathsapp: </mat-label>
+        <mat-label> {{iglesia.whatsapp}} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 100px;">Sitio Web: </mat-label>
+        <mat-label> {{iglesia.website}} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 100px;">Facebook: </mat-label>
+        <mat-label> {{iglesia.facebook}} </mat-label>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+
+</mat-card>

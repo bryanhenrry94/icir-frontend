@@ -1,0 +1,43 @@
+<div class="button-row">
+  <button mat-button routerLink="/home" routerLinkActive="active">Home</button>
+  <button mat-button routerLink="/home/cajas" routerLinkActive="active">Cajas</button>
+</div>
+
+<hr>
+
+<mat-card class="container-fluid">
+  <mat-card-header>
+    <mat-card-title>{{ caja.nombre }}</mat-card-title>
+    <mat-card-subtitle>ID: {{ caja._id }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item>
+        <mat-label style="width: 100px;">Código: </mat-label>
+        <mat-label> {{caja.codigo}} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 100px;">Nombre: </mat-label>
+        <mat-label> {{caja.nombre}} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 100px;">Iglesia: </mat-label>
+        <mat-label> {{caja.iglesia.nombre}} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 100px;">Moneda: </mat-label>
+        <mat-label> {{caja.moneda}} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 100px;">Responsable: </mat-label>
+        <mat-label> {{caja.responsable.nombre}} </mat-label>
+      </mat-list-item>
+
+      <mat-checkbox name="estado" [(ngModel)]="caja.estado" [disabled]="true">Estado</mat-checkbox>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

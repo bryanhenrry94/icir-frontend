@@ -1,0 +1,88 @@
+<div class="button-row">
+  <button mat-button routerLink="/home" routerLinkActive="active">Home</button>
+  <button mat-button routerLink="/home/personas" routerLinkActive="active">Personas</button>
+</div>
+
+<hr>
+
+<form #form="ngForm" [formGroup]="personaForm" (submit)="onSubmit(form)">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Mantenimiento de Personas</mat-card-title>
+      <mat-card-subtitle>ID {{_id.value}}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-6" style="padding-right: 50px;">
+
+            <div class="row">
+              <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="row">
+                  <mat-form-field>
+                    <mat-label>Tipo Identificacion</mat-label>
+                    <mat-select #tipoDocumento formControlName="tipo_identificacion" required>
+                      <mat-option *ngFor="let tipo of tipoIdentificacion" [value]="tipo.nombre">
+                        {{ tipo.nombre }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-lg-6 col-sm-12 col-xs-12">
+                <div class="row">
+                  <mat-form-field>
+                    <input matInput type="text" placeholder="Numero Identificación" formControlName="identificacion" (blur)="onBlur_Identificacion(identificacion.value)" required>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <mat-form-field style="width: 100%;">
+                <input matInput type="text" placeholder="Nombres" formControlName="nombres" required>
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field style="width: 100%;">
+                <input matInput type="text" placeholder="Apellidos" formControlName="apellidos" required>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-sm-6" style="padding-right: 50px;">
+            <div class="row">
+              <mat-form-field style="width: 100%;">
+                <input matInput type="text" placeholder="Dirección" formControlName="direccion">
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field>
+                <input matInput type="email" placeholder="Email" formControlName="email">
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field>
+                <input matInput type="text" placeholder="Teléfono" formControlName="telefono">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-actions>
+      <button type="submit" mat-raised-button color="accent" [disabled]="!personaForm.valid">
+        <mat-icon>save</mat-icon>
+        Guardar
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

@@ -1,0 +1,76 @@
+<div class="button-row">
+  <button mat-button routerLink="/home" routerLinkActive="active">Home</button>
+</div>
+
+<hr>
+
+<div class="button-row">
+  <button mat-raised-button color="primary" (click)="nuevo()" title="Nuevo">
+    <mat-icon>add_circle</mat-icon>
+    Nuevo
+  </button>
+
+  <button mat-raised-button color="primary" (click)="actualizar()" [disabled]="selected==null" title="Actualizar">
+    <mat-icon>update</mat-icon>
+    Actualizar
+  </button>
+
+  <button mat-raised-button color="primary" (click)="consultar()" [disabled]="selected==null" title="Consultar">
+    <mat-icon>search</mat-icon>
+    Consultar
+  </button>
+
+  <button mat-raised-button color="warn" (click)="eliminar()" [disabled]="selected==null" title="Eliminar">
+    <mat-icon>delete</mat-icon>
+    Eliminar
+  </button>
+</div>
+
+<hr>
+
+<table mat-table class="mat-elevation-z8" [dataSource]="dataSource" style="width: 100%;" responsive="true">
+
+  <!-- Checkbox Column -->
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()"
+                    (change)="$event ? selectRow($event.checked, row) : null"
+                    [checked]="selection.isSelected(row)">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <!-- Nombres Column -->
+  <ng-container matColumnDef="nombre">
+    <th mat-header-cell *matHeaderCellDef> Nombre </th>
+    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+  </ng-container>
+
+  <!-- Direccion Column -->
+  <ng-container matColumnDef="direccion">
+    <th mat-header-cell *matHeaderCellDef> Dirección </th>
+    <td mat-cell *matCellDef="let element"> {{element.direccion}} </td>
+  </ng-container>
+
+  <!-- Pastor Column -->
+  <ng-container matColumnDef="pastor">
+    <th mat-header-cell *matHeaderCellDef> Pastor </th>
+    <td mat-cell *matCellDef="let element"> {{element.pastor}} </td>
+  </ng-container>
+
+  <!-- Email Column -->
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef> Email </th>
+    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+  </ng-container>
+
+    <!-- Telefono Column -->
+    <ng-container matColumnDef="telefono">
+      <th mat-header-cell *matHeaderCellDef> Telefono </th>
+      <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+    </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selectRow(!selection.isSelected(row), row)"></tr>
+</table>

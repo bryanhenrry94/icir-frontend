@@ -1,0 +1,51 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Movimiento Caja</mat-card-title>
+    <mat-card-subtitle>ID {{ movimientoCaja._id }} </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item>
+        <mat-label style="width: 150px;">Fecha</mat-label>
+        <mat-label> {{ movimientoCaja.fecha | date: 'dd-MM-yyyy' }} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 150px;">Iglesia</mat-label>
+        <mat-label> {{ movimientoCaja.iglesia.nombre }} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 150px;">Caja</mat-label>
+        <mat-label> {{ movimientoCaja.caja.nombre }} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 150px;">Signo</mat-label>
+        <mat-label> {{ movimientoCaja.signo }} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 150px;">Tipo Mov.</mat-label>
+        <mat-label> {{ movimientoCaja.tipo_movimiento == null ? '' : movimientoCaja.tipo_movimiento.nombre }} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 150px;">Referencia</mat-label>
+        <mat-label> {{ movimientoCaja.referencia }} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 150px;">Persona</mat-label>
+        <mat-label> {{ movimientoCaja.persona == null ? '' : movimientoCaja.persona.nombres }} {{ movimientoCaja.persona == null ? '' : movimientoCaja.persona.apellidos }} </mat-label>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-label style="width: 150px;">Valor</mat-label>
+        <mat-label> {{ movimientoCaja.valor }} </mat-label>
+      </mat-list-item>
+
+    </mat-list>
+  </mat-card-content>
+</mat-card>

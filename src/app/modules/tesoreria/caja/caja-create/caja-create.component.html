@@ -1,0 +1,84 @@
+<div class="button-row">
+  <button mat-button routerLink="/home" routerLinkActive="active">Home</button>
+  <button mat-button routerLink="/home/cajas" routerLinkActive="active">Cajas</button>
+</div>
+
+<hr>
+
+<form #form="ngForm" [formGroup]="cajaForm" (submit)="onSubmit(form)">
+
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image">
+        <img src="../../../../assets/img/avatar profile.jpg" width="50px" height="50px">
+      </div>
+      <mat-card-title>Mantenimiento Caja</mat-card-title>
+      <mat-card-subtitle>ID: {{_id.value}}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-4" style="padding-right: 50px;">
+            <div class="row">
+              <mat-form-field style="width: 100%;">
+                <mat-label>Iglesia</mat-label>
+                <mat-select formControlName="iglesia" [compareWith]="compareItems">
+                  <mat-option *ngFor="let iglesia of iglesias" [value]="iglesia">
+                    {{ iglesia.nombre }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field>
+                <input matInput type="text" formControlName="codigo" placeholder="Código">
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field style="width: 100%;">
+                <input matInput type="text" formControlName="nombre" placeholder="Nombre">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-sm-4" style="padding-right: 50px;">
+            <div class="row">
+              <mat-form-field>
+                <input matInput type="text" formControlName="moneda" placeholder="Moneda">
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field style="width: 100%;">
+                <mat-label>Responsable</mat-label>
+                <mat-select formControlName="responsable" [compareWith]="compareItems">
+                  <mat-option *ngFor="let usuario of usuarios" [value]="usuario">
+                    {{ usuario.nombre }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-checkbox name="estado" formControlName="estado" required>Estado</mat-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-actions>
+      <button type="submit" mat-raised-button color="accent" [disabled]="!form.valid">
+        <mat-icon>save</mat-icon>
+        Guardar
+      </button>
+    </mat-card-actions>
+
+  </mat-card>
+
+</form>

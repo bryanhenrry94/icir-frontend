@@ -1,0 +1,42 @@
+<form method="POST" #form="ngForm" (submit)="updateTipoMovimiento()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Tipo de Movimiento</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="row" style="max-width: 400px;">
+        <div class="row">
+          <div class="row">
+            <mat-radio-group
+            name="signo"
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="tipoMovimiento.signo"
+            required>
+            <mat-radio-button style="padding: 10px;" class="example-radio-button" value="+">Ingreso</mat-radio-button>
+            <mat-radio-button style="padding: 10px;" class="example-radio-button" value="-">Egreso</mat-radio-button>
+          </mat-radio-group>
+          </div>
+        </div>
+
+        <div class="row">
+          <mat-form-field style="width: 100%;">
+            <input matInput type="text" name="nombre" placeholder="Nombre" [(ngModel)]="tipoMovimiento.nombre" required>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-actions>
+      <button type="submit" mat-raised-button color="accent" [disabled]="!form.valid">
+        <mat-icon>save</mat-icon>
+        Guardar
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+</form>

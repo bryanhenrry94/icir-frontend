@@ -1,0 +1,107 @@
+<form method="POST" #form="ngForm" (submit)="updateMovimientoCaja(form)">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Movimiento Caja</mat-card-title>
+      <mat-card-subtitle>ID: {{ movimientoCaja._id }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="row">
+        <div class="column" style="max-width: 350px; padding-right: 20px;">
+          <div class="row">
+            <mat-form-field color="accent">
+              <mat-label>Fecha</mat-label>
+              <input matInput [matDatepicker]="fecha" name="fecha" [(ngModel)]="movimientoCaja.fecha" required>
+              <mat-datepicker-toggle matSuffix [for]="fecha"></mat-datepicker-toggle>
+              <mat-datepicker #fecha></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field style="width: 100%;">
+              <mat-label>Iglesia</mat-label>
+              <mat-select [(value)]="movimientoCaja.iglesia.nombre" required (selectionChange)="change_iglesia($event.value)">
+                <mat-option *ngFor="let iglesia of iglesias" [value]="iglesia.nombre">
+                  {{ iglesia.nombre }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field>
+              <mat-label>Caja</mat-label>
+              <mat-select [(value)]="movimientoCaja.caja.nombre" required (selectionChange)="change_caja($event.value)">
+                <mat-option *ngFor="let caja of cajas" [value]="caja.nombre">
+                  {{ caja.nombre }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-radio-group
+                name="signo"
+                aria-labelledby="example-radio-group-label"
+                class="example-radio-group"
+                [(ngModel)]="movimientoCaja.signo"
+                required>
+                <mat-radio-button style="padding: 10px;" class="example-radio-button" value="+" (change)="change_radio($event.value)">Ingreso</mat-radio-button>
+                <mat-radio-button style="padding: 10px;" class="example-radio-button" value="-" (change)="change_radio($event.value)">Egreso</mat-radio-button>
+              </mat-radio-group>
+          </div>
+
+          <div class="row">
+            <mat-form-field>
+              <mat-label>Tipo Movimiento</mat-label>
+              <mat-select [(value)]="movimientoCaja.tipo_movimiento" required>
+                <mat-option *ngFor="let tipo of tipoMovimientos" [value]="tipo">
+                  {{ tipo.nombre }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button mat-icon-button color="accent" (click)="openDialogTipoMovimientoCreate()" fxHide.xs>
+              <mat-icon>add_circle</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="column" style="max-width: 350px;">
+          <div class="row">
+            <mat-form-field>
+              <input matInput type="text" name="referencia" placeholder="Referencia" [(ngModel)]="movimientoCaja.referencia">
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field style="width: 230px;">
+              <mat-label>Persona</mat-label>
+              <mat-select [(value)]="movimientoCaja.persona.nombres">
+                <mat-option *ngFor="let persona of personas" [value]="persona.nombres">
+                  {{ persona.nombres }}  {{ persona.apellidos}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button mat-icon-button color="accent" (click)="openDialogPersonaCreate()" fxHide.xs>
+              <mat-icon>add_circle</mat-icon>
+            </button>
+          </div>
+
+          <div class="row">
+            <mat-form-field>
+              <input matInput type="number" name="valor" placeholder="Valor" [(ngModel)]="movimientoCaja.valor" required>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-actions>
+      <button type="submit" mat-raised-button color="accent">
+        <mat-icon>save</mat-icon>
+        Grabar
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

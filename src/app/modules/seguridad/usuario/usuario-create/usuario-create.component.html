@@ -1,0 +1,84 @@
+<div class="button-row">
+  <button mat-button routerLink="/home" routerLinkActive="active">Home</button>
+  <button mat-button routerLink="/home/usuarios" routerLinkActive="active">Usuarios</button>
+</div>
+
+<hr>
+
+<form #form="ngForm" [formGroup]="usuarioForm" (submit)="onSubmit(form)">
+
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image">
+        <img src="../../../../assets/img/avatar profile.jpg" width="50px" height="50px">
+      </div>
+      <mat-card-title>Mantenimiento Usuario</mat-card-title>
+      <mat-card-subtitle>ID: </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-4" style="padding-right: 50px;">
+            <div class="row">
+              <mat-form-field style="width: 100%;">
+                <input matInput type="text" formControlName="usuario" placeholder="Usuasrio">
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field style="width: 100%;">
+                <input matInput type="password" formControlName="contrasena" placeholder="Contraseña">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-sm-4" style="padding-right: 50px;">
+            <div class="row">
+              <mat-form-field style="width: 100%;">
+                <mat-label>Perfil</mat-label>
+                <mat-select formControlName="perfil">
+                  <mat-option *ngFor="let role of roles" [value]="role.nombre">
+                    {{ role.nombre }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field style="width: 100%;">
+                <input matInput type="text" formControlName="nombre" placeholder="Nombre">
+              </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field style="width: 100%;">
+                <input matInput type="text" formControlName="email" placeholder="Email">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-sm-4" style="padding-right: 50px;">
+            <img src="../../../../assets/img/avatar profile.jpg" width="150px" height="150px">
+            <br>
+            <button type="button" onsubmit="cancel" mat-icon-button color="accent">
+              <mat-icon>add_a_photo</mat-icon>
+              Subir foto</button>
+          </div>
+        </div>
+      </div>
+  </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-actions>
+      <button type="submit" mat-raised-button color="accent" [disabled]="!form.valid">
+        <mat-icon>save</mat-icon>
+        Guardar
+      </button>
+    </mat-card-actions>
+
+  </mat-card>
+
+</form>
