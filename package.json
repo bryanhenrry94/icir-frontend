@@ -1,9 +1,9 @@
 {
-  "name": "frontend",
+  "name": "icir-web",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -13,11 +13,11 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~9.1.11",
-    "@angular/cli": "^9.1.9",
-    "@angular/compiler-cli": "~9.1.11",
     "@angular/cdk": "^9.2.4",
+    "@angular/cli": "^9.1.9",
     "@angular/common": "~9.1.11",
     "@angular/compiler": "~9.1.11",
+    "@angular/compiler-cli": "~9.1.11",
     "@angular/core": "~9.1.11",
     "@angular/flex-layout": "^9.0.0-beta.31",
     "@angular/forms": "~9.1.11",
@@ -25,11 +25,13 @@
     "@angular/platform-browser": "~9.1.11",
     "@angular/platform-browser-dynamic": "~9.1.11",
     "@angular/router": "~9.1.11",
-    "typescript": "^3.8.3",
     "bootstrap": "^4.5.0",
+    "express": "^4.17.1",
     "jquery": "^3.5.1",
+    "path": "^0.12.7",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
+    "typescript": "^3.8.3",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
