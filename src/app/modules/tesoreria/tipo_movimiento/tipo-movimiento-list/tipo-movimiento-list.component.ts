@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ITipoMovimiento } from 'src/app/models/ITipoMovimiento';
 import { MatTableDataSource } from '@angular/material/table';
 import { TipoMovimientoService } from 'src/app/services/tipo-movimiento.service';
-import { AlertService } from 'src/app/alert/services/alert.service';
 import { Tipo_Accion } from 'src/app/models/Tipo_Accion';
 import { Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-tipo-movimiento-list',
@@ -21,7 +21,7 @@ export class TipoMovimientoListComponent implements OnInit {
 
   constructor(
     private tipoMovimientoService: TipoMovimientoService,
-    private alertService: AlertService,
+    private notifyService: NotificationService,
     private route: Router
   ) { }
 
@@ -44,12 +44,11 @@ export class TipoMovimientoListComponent implements OnInit {
       this.tipoMovimientoService.delete(this.selected._id)
       .subscribe(
         res => {
-          this.alertService.success(res.mensaje);
+          this.notifyService.showSuccess(res.mensaje, 'Sistema');
           this.getTipoMovimientos();
         },
         err => {
-          console.log(err);
-          this.alertService.warn(err);
+          this.notifyService.showError(err.error, 'Sistema');
         }
       )
     }
@@ -73,7 +72,7 @@ export class TipoMovimientoListComponent implements OnInit {
         this.dataSource.data = res as ITipoMovimiento[];
       },
       err => {
-        this.alertService.warn(err);
+        this.notifyService.showError(err.error, 'Sistema');
       }
     )
   }

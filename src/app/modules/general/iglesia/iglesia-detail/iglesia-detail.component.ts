@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Iglesia } from 'src/app/models/Iglesia';
 import { ActivatedRoute } from '@angular/router';
 import { IglesiaService } from 'src/app/services/iglesia.service';
-import { AlertService } from 'src/app/alert/services/alert.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-iglesia-detail',
@@ -15,7 +15,7 @@ export class IglesiaDetailComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private iglesiaService: IglesiaService,
-    private alertService: AlertService
+    private notifyService: NotificationService
     ) {
     this.iglesia = new Iglesia();
   }
@@ -34,7 +34,7 @@ export class IglesiaDetailComponent implements OnInit {
         this.iglesia  = res;
       },
       err => {
-        this.alertService.warn(err.error);
+        this.notifyService.showError(err.error, 'Sistema');
       }
     )
   }

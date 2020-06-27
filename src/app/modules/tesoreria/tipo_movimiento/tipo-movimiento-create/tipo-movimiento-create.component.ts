@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { TipoMovimientoService } from 'src/app/services/tipo-movimiento.service';
-import { AlertService } from 'src/app/alert/services/alert.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Tipo_Accion } from 'src/app/models/Tipo_Accion';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-tipo-movimiento-create',
@@ -24,7 +24,7 @@ export class TipoMovimientoCreateComponent implements OnInit {
 
   constructor(
     private tipoMovimientoService: TipoMovimientoService,
-    private alertService: AlertService,
+    private notifyService : NotificationService,
     private _route: ActivatedRoute,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<TipoMovimientoCreateComponent>,
@@ -32,7 +32,7 @@ export class TipoMovimientoCreateComponent implements OnInit {
 
   )
   {
-    this._id = new FormControl({ value: '', required: true})
+    this._id = new FormControl('');
     this.signo = new FormControl('', Validators.required);
     this.nombre = new FormControl('', Validators.required);
 
@@ -78,14 +78,14 @@ export class TipoMovimientoCreateComponent implements OnInit {
   addTipoMovimiento(){
     this.tipoMovimientoService.addTipoMovimiento(this.tipoMovimientoForm.value).subscribe(
       res => {
-        this.alertService.success('tipo movimiento registrado con éxito!');
+        this.notifyService.showSuccess('tipo movimiento registrado con éxito!', 'Sistema');
 
         if(this.dialogRef != null){
           this.dialogRef.close(JSON.stringify(res));
         }
       },
       err => {
-        this.alertService.warn('Error: ' + err);
+        this.notifyService.showError('Error: ' + err.error, 'Sistema');
       }
     )
   }
@@ -93,14 +93,14 @@ export class TipoMovimientoCreateComponent implements OnInit {
   updateTipoMovimientp(){
     this.tipoMovimientoService.updateTipoMovimiento(this.tipoMovimientoForm.getRawValue()).subscribe(
       res => {
-        this.alertService.success('Tipo Movimiento actualizado correctamente!');
+        this.notifyService.showSuccess('Tipo Movimiento actualizado correctamente!', 'Sistema');
 
         if(this.dialogRef != null){
           this.dialogRef.close(JSON.stringify(res));
         }
       },
       err => {
-        this.alertService.warn('Error: ' + err);
+        this.notifyService.showError('Error: ' + err.error, 'Sistema');
       }
     )
   }

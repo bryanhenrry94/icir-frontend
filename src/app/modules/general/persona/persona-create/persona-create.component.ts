@@ -1,13 +1,13 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { ITipoIdentificacion } from 'src/app/models/ITipoIdentificacion';
 import { PersonaService } from 'src/app/services/persona.service';
-import { AlertService } from 'src/app/alert/services/alert.service';
-import { NgForm, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ValidarCedRuc  } from '../../../../utils/validarCedRuc';
 import { Subscription } from 'rxjs';
 import { Tipo_Accion } from 'src/app/models/Tipo_Accion';
 import { ActivatedRoute } from '@angular/router';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-persona-create',
@@ -40,7 +40,7 @@ export class PersonaCreateComponent implements OnInit, OnDestroy {
 
   constructor(
     private personaService: PersonaService,
-    private alertService: AlertService,
+    private notifyService : NotificationService,
     private _route: ActivatedRoute,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<PersonaCreateComponent>,
@@ -135,14 +135,14 @@ export class PersonaCreateComponent implements OnInit, OnDestroy {
   addPersona(){
     this.personaService.addPersona(this.personaForm.value).subscribe(
       res => {
-        this.alertService.success('Persona registrado con éxito!');
+        this.notifyService.showSuccess('Persona registrado con éxito!', 'Sistema');
 
         if(this.dialogRef != null){
           this.dialogRef.close(JSON.stringify(res));
         }
       },
       err => {
-        this.alertService.warn('Error: ' + err);
+        this.notifyService.showError('Error: ' + err, 'Sistema');
       }
     )
   }
@@ -150,14 +150,14 @@ export class PersonaCreateComponent implements OnInit, OnDestroy {
   updatePersona(){
     this.personaService.updatePersona(this.personaForm.getRawValue()).subscribe(
       res => {
-        this.alertService.success('Persona actualizada correctamente!');
+        this.notifyService.showSuccess('Persona actualizada correctamente!', "Sistema");
 
         if(this.dialogRef != null){
           this.dialogRef.close(JSON.stringify(res));
         }
       },
       err => {
-        this.alertService.warn('Error: ' + err);
+        this.notifyService.showError('Error: ' + err, "Sistema");
       }
     )
   }

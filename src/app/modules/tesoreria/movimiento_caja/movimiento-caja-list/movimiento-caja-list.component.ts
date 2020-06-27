@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { IMovimientoCaja } from 'src/app/models/IMovimientoCaja';
 import { MatTableDataSource } from '@angular/material/table';
 import { MovimientoCajaService } from 'src/app/services/movimiento-caja.service';
-import { AlertService } from 'src/app/alert/services/alert.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { Tipo_Accion } from 'src/app/models/Tipo_Accion';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-movimiento-caja-list',
@@ -21,7 +21,7 @@ export class MovimientoCajaListComponent implements OnInit {
 
   constructor(
     private movimientoCajaService: MovimientoCajaService,
-    private alertService: AlertService,
+    private notifyService: NotificationService,
     private route: Router
   ) { }
 
@@ -44,12 +44,12 @@ export class MovimientoCajaListComponent implements OnInit {
       this.movimientoCajaService.delete(this.selected._id)
       .subscribe(
         res => {
-          this.alertService.success(res.mensaje);
+          this.notifyService.showSuccess(res.mensaje, 'Sistema');
           this.getMovimientoCajas();
         },
         err => {
           console.log(err);
-          this.alertService.warn(err);
+          this.notifyService.showError(err.error, 'Sistema');
         }
       )
     }
@@ -74,7 +74,7 @@ export class MovimientoCajaListComponent implements OnInit {
          this.dataSource.data = res as IMovimientoCaja[];
       }
       , err => {
-        this.alertService.warn(err);
+        this.notifyService.showError(err.error, 'Sistema');
       }
     )
   }

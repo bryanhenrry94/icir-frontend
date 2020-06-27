@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ICaja } from 'src/app/models/ICaja';
 import { MatTableDataSource } from '@angular/material/table';
 import { CajaService } from 'src/app/services/caja.service';
-import { AlertService } from 'src/app/alert/services/alert.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { Tipo_Accion } from 'src/app/models/Tipo_Accion';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-caja-list',
@@ -21,7 +21,7 @@ export class CajaListComponent implements OnInit {
 
   constructor(
     private cajaService: CajaService,
-    private alertService: AlertService,
+    private notifyService: NotificationService,
     private route: Router
   ) { }
 
@@ -48,12 +48,12 @@ export class CajaListComponent implements OnInit {
       this.cajaService.delete(this.selected._id)
       .subscribe(
         res => {
-          this.alertService.success(res.mensaje);
+          this.notifyService.showSuccess(res.mensaje, 'Sistema');
           this.getCajas();
         },
         err => {
           console.log(err);
-          this.alertService.warn(err);
+          this.notifyService.showError(err.error, 'Sistema');
         }
       )
     }
@@ -74,7 +74,7 @@ export class CajaListComponent implements OnInit {
          this.dataSource.data = res as ICaja[];
       }
       , err => {
-        this.alertService.warn(err);
+        this.notifyService.showError(err.error, 'Sistema');
       }
     )
   }

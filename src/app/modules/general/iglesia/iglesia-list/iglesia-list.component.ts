@@ -2,10 +2,10 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IIGlesia } from 'src/app/models/IIglesia';
 import { MatTableDataSource } from '@angular/material/table';
 import { IglesiaService } from 'src/app/services/iglesia.service';
-import { AlertService } from 'src/app/alert/services/alert.service';
 import { Tipo_Accion } from 'src/app/models/Tipo_Accion';
 import { Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-church-list',
@@ -22,7 +22,7 @@ export class IglesiaListComponent implements OnInit {
 
   constructor(
     private iglesiaService: IglesiaService,
-    private alertService: AlertService,
+    private notifyService: NotificationService,
     private route: Router
   ) {
 
@@ -51,12 +51,12 @@ export class IglesiaListComponent implements OnInit {
       this.iglesiaService.delete(this.selected._id)
       .subscribe(
         res => {
-          this.alertService.success(res.mensaje);
+          this.notifyService.showSuccess(res.mensaje, 'Sistema');
           this.getIglesias();
         },
         err => {
           console.log(err);
-          this.alertService.warn(err);
+          this.notifyService.showError(err.error, 'Sistema');
         }
       )
     }
@@ -76,7 +76,7 @@ export class IglesiaListComponent implements OnInit {
          this.dataSource.data = res as IIGlesia[];
       }
       , err => {
-        this.alertService.warn(err);
+        this.notifyService.showError(err.error, 'Sistema');
       }
     )
   }

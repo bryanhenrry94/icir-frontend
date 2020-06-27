@@ -3,12 +3,12 @@ import { Iglesia } from 'src/app/models/Iglesia';
 import { IglesiaService } from 'src/app/services/iglesia.service';
 import { Usuario } from 'src/app/auth/models/Usuario';
 import { CajaService } from 'src/app/services/caja.service';
-import { AlertService } from 'src/app/alert/services/alert.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Tipo_Accion } from 'src/app/models/Tipo_Accion';
 import { UserService } from 'src/app/services/user.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-caja-create',
@@ -37,7 +37,7 @@ export class CajaCreateComponent implements OnInit, OnDestroy {
     private iglesiaService: IglesiaService,
     private usuarioService: UserService,
     private cajaService: CajaService,
-    private alertService: AlertService,
+    private notifyService : NotificationService,
     private _route: ActivatedRoute,
     private fb: FormBuilder
   )
@@ -110,7 +110,7 @@ export class CajaCreateComponent implements OnInit, OnDestroy {
         this.iglesias = res as Iglesia[];
       },
       err => {
-        this.alertService.warn('Error: ' + err.error);
+        this.notifyService.showError('Error: ' + err.error, 'Sistema');
       }
     )
   }
@@ -143,9 +143,9 @@ export class CajaCreateComponent implements OnInit, OnDestroy {
 
     this.cajaService.addCaja(this.cajaForm.value).subscribe(
       res => {
-        this.alertService.success('Caja registrado con éxito!');
+        this.notifyService.showSuccess('Caja registrado con éxito!', 'Sistema');
       }, err => {
-        this.alertService.warn('Error: ' + err.error);
+        this.notifyService.showError('Error: ' + err.error, 'Sistema');
       }
     )
   }
@@ -153,9 +153,9 @@ export class CajaCreateComponent implements OnInit, OnDestroy {
   updateCaja(){
     this.cajaService.updateCaja(this.cajaForm.getRawValue()).subscribe(
       res => {
-        this.alertService.success('Caja actualizado con éxito!');
+        this.notifyService.showSuccess('Caja actualizado con éxito!', 'Sistema');
       }, err => {
-        this.alertService.warn('Error: ' + err.error);
+        this.notifyService.showError('Error: ' + err.error, 'Sistema');
       }
     )
   }

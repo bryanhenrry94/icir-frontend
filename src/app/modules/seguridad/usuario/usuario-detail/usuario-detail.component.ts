@@ -3,7 +3,8 @@ import { IPerfil } from '../../../../models/IPerfil';
 import { UserService } from '../../../../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Usuario } from 'src/app/auth/models/Usuario';
-import { AlertService } from '../../../../alert/services/alert.service';
+import { NotificationService } from 'src/app/services/notification.service';
+
 
 
 @Component({
@@ -23,7 +24,7 @@ export class UsuarioDetailComponent implements OnInit {
   constructor(
     private userService: UserService,
     private _route: ActivatedRoute,
-    private alertService: AlertService
+    private notifyService: NotificationService
     )
     {
       this.user = new Usuario();
@@ -43,7 +44,7 @@ export class UsuarioDetailComponent implements OnInit {
         this.user = res;
       },
       err => {
-        this.alertService.warn(err.error);
+        this.notifyService.showError(err.error, 'Sistema');
       }
     )
   }

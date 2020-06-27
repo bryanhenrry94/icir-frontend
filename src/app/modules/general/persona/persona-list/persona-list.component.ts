@@ -3,9 +3,9 @@ import { IPersona } from 'src/app/models/IPersona';
 import { MatTableDataSource } from '@angular/material/table';
 import { PersonaService } from 'src/app/services/persona.service';
 import { Router } from '@angular/router';
-import { AlertService } from 'src/app/alert/services/alert.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Tipo_Accion } from 'src/app/models/Tipo_Accion';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-persona-list',
@@ -22,7 +22,7 @@ export class PersonaListComponent implements OnInit {
   constructor(
     private personaService: PersonaService,
     private route: Router,
-    private alertService: AlertService
+    private notifyService: NotificationService
   ) { }
 
   nuevo(){
@@ -44,12 +44,12 @@ export class PersonaListComponent implements OnInit {
       this.personaService.delete(this.selected._id)
       .subscribe(
         res => {
-          this.alertService.success(res.mensaje);
+          this.notifyService.showSuccess(res.mensaje, 'Sistema');
           this.getPersonas();
         },
         err => {
           console.log(err);
-          this.alertService.warn(err);
+          this.notifyService.showError(err.error, 'Sistema');
         }
       )
     }
@@ -73,7 +73,7 @@ export class PersonaListComponent implements OnInit {
          this.dataSource.data = res as IPersona[];
       }
       , err => {
-        this.alertService.warn(err);
+        this.notifyService.showError(err.error, 'Sistema');
       }
     )
   }

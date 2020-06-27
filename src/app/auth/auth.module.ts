@@ -7,7 +7,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
-import { AlertModule } from '../alert/alert.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
@@ -22,7 +21,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatButtonModule,
     MatInputModule,
     MatDividerModule,
-    AlertModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule
   ],exports: [

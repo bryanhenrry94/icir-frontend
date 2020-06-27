@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TipoMovimiento } from 'src/app/models/TipoMovimiento';
 import { TipoMovimientoService } from 'src/app/services/tipo-movimiento.service';
 import { ActivatedRoute } from '@angular/router';
-import { AlertService } from 'src/app/alert/services/alert.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-tipo-movimiento-detail',
@@ -15,7 +15,7 @@ export class TipoMovimientoDetailComponent implements OnInit {
   constructor(
     private tipoMovimientoService: TipoMovimientoService,
     private _route: ActivatedRoute,
-    private alertService: AlertService
+    private notifyService: NotificationService
   )
   {
     this.tipoMovimiento = new TipoMovimiento();
@@ -35,7 +35,7 @@ export class TipoMovimientoDetailComponent implements OnInit {
         this.tipoMovimiento = res;
       },
       err => {
-        this.alertService.warn('Error: ' + err);
+        this.notifyService.showError('Error: ' + err.error, 'Sistema');
       }
     )
   }

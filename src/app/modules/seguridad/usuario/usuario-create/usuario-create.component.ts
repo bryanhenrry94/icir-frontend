@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { IPerfil } from '../../../../models/IPerfil';
 import { UserService } from '../../../../services/user.service';
 import { ActivatedRoute } from '@angular/router';
-import { AlertService } from '../../../../alert/services/alert.service';
-import { FormGroup, FormControl, Validators, FormBuilder, NgForm } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Tipo_Accion } from 'src/app/models/Tipo_Accion';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-user-create',
@@ -33,7 +33,7 @@ export class UsuarioCreateComponent implements OnInit {
   constructor(
     private userService: UserService,
     private _route: ActivatedRoute,
-    private alertService: AlertService,
+    private notifyService : NotificationService,
     private fb: FormBuilder
   )
   {
@@ -89,9 +89,9 @@ export class UsuarioCreateComponent implements OnInit {
   addUser(){
     this.userService.addUser(this.usuarioForm.value).subscribe(
       res => {
-        this.alertService.success('Usuario registrado con éxito!');
+        this.notifyService.showSuccess('Usuario registrado con éxito!', 'Sistema');
       }, err => {
-        this.alertService.warn('Error: ' + err.error);
+        this.notifyService.showError('Error: ' + err.error, 'Sistema');
       }
     )
   }
@@ -99,9 +99,9 @@ export class UsuarioCreateComponent implements OnInit {
   updateUser(){
     this.userService.updateUser(this.usuarioForm.getRawValue()).subscribe(
       res => {
-        this.alertService.success('Usuario actualizado con éxito!');
+        this.notifyService.showSuccess('Usuario actualizado con éxito!', 'Sistema');
       }, err => {
-        this.alertService.warn('Error: ' + err.error);
+        this.notifyService.showError('Error: ' + err.error, 'Sistema');
       }
     )
   }

@@ -76,6 +76,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 import { CustomHttpInterceptor } from './services/http-interceptor';
 
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -140,7 +142,8 @@ import { CustomHttpInterceptor } from './services/http-interceptor';
     HttpClientModule,
     FlexLayoutModule,
     AdminModule,
-    AuthModule
+    AuthModule,
+    ToastrModule.forRoot()
   ],
   exports:[
     MatToolbarModule,

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Persona } from 'src/app/models/Persona';
 import { PersonaService } from 'src/app/services/persona.service';
-import { ActivatedRoute } from '@angular/router';
-import { AlertService } from 'src/app/alert/services/alert.service';
+import { ActivatedRoute } from '@angular/router'
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-persona-detail',
@@ -15,7 +15,7 @@ export class PersonaDetailComponent implements OnInit {
   constructor(
     private personaService: PersonaService,
     private _route: ActivatedRoute,
-    private alertService: AlertService
+    private noyifyService: NotificationService
   ) {
     this.persona = new Persona();
   }
@@ -34,7 +34,7 @@ export class PersonaDetailComponent implements OnInit {
         this.persona = res;
       },
       err => {
-        this.alertService.warn('Error: ' + err);
+        this.noyifyService.showError('Error: ' + err.error, 'Sistema');
       }
     )
   }

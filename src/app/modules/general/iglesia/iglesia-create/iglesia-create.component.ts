@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { IglesiaService } from 'src/app/services/iglesia.service';
-import { AlertService } from 'src/app/alert/services/alert.service';
 import { FormGroup, FormControl, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Tipo_Accion } from 'src/app/models/Tipo_Accion';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-iglesia-create',
@@ -31,7 +31,7 @@ export class IglesiaCreateComponent implements OnInit {
 
   constructor(
     private iglesiaService: IglesiaService,
-    private alertService: AlertService,
+    private notifyService : NotificationService,
     private _route: ActivatedRoute,
     private fb: FormBuilder
   )
@@ -101,12 +101,12 @@ export class IglesiaCreateComponent implements OnInit {
     this.iglesiaService.addIglesia(this.iglesiaForm.value).subscribe(
       res => {
 
-        this.alertService.success("iglesia registrada con éxito!");
+        this.notifyService.showSuccess("iglesia registrada con éxito!", "Sistema");
 
         this.iglesiaForm.reset;
       },
       err => {
-        this.alertService.warn("Error: " + err.error);
+        this.notifyService.showError("Error: " + err.error, "Sistema");
       }
     )
   }
@@ -115,12 +115,12 @@ export class IglesiaCreateComponent implements OnInit {
     this.iglesiaService.updateIglesia(this.iglesiaForm.getRawValue()).subscribe(
       res => {
 
-        this.alertService.success("iglesia actualizada con éxito!");
+        this.notifyService.showSuccess("iglesia actualizada con éxito!", "Sistema");
 
         this.iglesiaForm.reset;
       },
       err => {
-        this.alertService.warn("Error: " + err.error);
+        this.notifyService.showError("Error: " + err.error, "Sistema");
       }
     )
   }

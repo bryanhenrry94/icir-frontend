@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { AlertService } from '../../alert/services/alert.service';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-auth',
@@ -17,7 +17,7 @@ export class AuthComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private route: Router,
-    private alertService: AlertService,
+    private notifyService : NotificationService,
     fb: FormBuilder
   ) {
       this.usuario = new FormControl('', Validators.required);
@@ -40,10 +40,10 @@ export class AuthComponent implements OnInit {
 
           this.route.navigate(['home']);
 
-          this.alertService.success("Bienvenido " + res.username);
+          this.notifyService.showInfo("Bienvenido " + res.nombre, "Sistema")
       },
       err => {
-        this.alertService.warn(err.error);
+        this.notifyService.showError("Error: " + err.error, "Sistema")
       }
     )
   }

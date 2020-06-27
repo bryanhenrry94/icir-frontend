@@ -1,11 +1,12 @@
+
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../../services/user.service';
-import { AlertService } from '../../../../alert/services/alert.service';
 import { IUsuario } from 'src/app/auth/models/IUsuario';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Tipo_Accion } from 'src/app/models/Tipo_Accion';
 import { SelectionModel } from '@angular/cdk/collections';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-user-list',
@@ -21,7 +22,7 @@ export class UsuarioListComponent implements OnInit {
 
   constructor(
     public userService: UserService,
-    private alertService: AlertService,
+    private notifyService: NotificationService,
     private route: Router
   ) { }
 
@@ -48,12 +49,11 @@ export class UsuarioListComponent implements OnInit {
       this.userService.delete(this.selected._id)
       .subscribe(
         res => {
-          this.alertService.success(res.mensaje);
+          this.notifyService.showSuccess(res.mensaje, 'Sistema');
           this.getUsers();
         },
         err => {
-          console.log(err);
-          this.alertService.warn(err);
+          this.notifyService.showError(err.error, 'Sistema');
         }
       )
     }
@@ -74,7 +74,7 @@ export class UsuarioListComponent implements OnInit {
          this.dataSource.data = res as IUsuario[];
       }
       , err => {
-        this.alertService.warn(err);
+        this.notifyService.showError(err.error, 'Sistema');
       }
     )
   }

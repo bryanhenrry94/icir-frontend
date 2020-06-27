@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Iglesia } from 'src/app/models/Iglesia';
 import { IglesiaService } from 'src/app/services/iglesia.service';
-import { AlertService } from 'src/app/alert/services/alert.service';
 import { Caja } from 'src/app/models/Caja';
 import { CajaService } from 'src/app/services/caja.service';
 import { TipoMovimientoService } from 'src/app/services/tipo-movimiento.service';
@@ -17,6 +16,7 @@ import { Subscription } from 'rxjs';
 import { Tipo_Accion } from 'src/app/models/Tipo_Accion';
 import { ActivatedRoute } from '@angular/router';
 import { IPersona } from 'src/app/models/IPersona';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-movimiento-caja-create',
@@ -46,7 +46,7 @@ export class MovimientoCajaCreateComponent implements OnInit, OnDestroy {
   constructor(
     private iglesiaService: IglesiaService,
     private cajaService: CajaService,
-    private alertService: AlertService,
+    private notifyService : NotificationService,
     private tipoMovimientoService: TipoMovimientoService,
     private personaService: PersonaService,
     private movimientoCajaService: MovimientoCajaService,
@@ -56,7 +56,7 @@ export class MovimientoCajaCreateComponent implements OnInit, OnDestroy {
   )
   {
     this._id = new FormControl({value:'', disabled: true});
-    this.fecha = new FormControl('', Validators.required);
+    this.fecha = new FormControl(new Date(), Validators.required);
     this.iglesia = new FormControl('', Validators.required);
     this.caja = new FormControl('', Validators.required);
     this.signo = new FormControl('', Validators.required);
@@ -88,7 +88,7 @@ export class MovimientoCajaCreateComponent implements OnInit, OnDestroy {
             this.cajas = res as Caja[];
           },
           err => {
-            this.alertService.warn('Error: ' + err.error);
+            this.notifyService.showError('Error: ' + err.error, 'Sistema');
           }
         )
       }
@@ -107,7 +107,7 @@ export class MovimientoCajaCreateComponent implements OnInit, OnDestroy {
             this.tipoMovimientos = res as TipoMovimiento[];
           },
           err => {
-            this.alertService.warn('Error: ' + err.error);
+            this.notifyService.showError('Error: ' + err.error, 'Sistema');
           }
         )
       }
@@ -143,7 +143,7 @@ export class MovimientoCajaCreateComponent implements OnInit, OnDestroy {
         this.iglesias = res as Iglesia[];
       },
       err => {
-        this.alertService.warn('Error: ' + err.error);
+        this.notifyService.showError('Error: ' + err.error, 'Sistema');
       }
     )
   }
@@ -154,7 +154,7 @@ export class MovimientoCajaCreateComponent implements OnInit, OnDestroy {
         this.personas = res as Persona[];
       },
       err => {
-        this.alertService.warn('Error: ' + err.error);
+        this.notifyService.showError('Error: ' + err.error, 'Sistema');
       }
     )
   }
@@ -192,6 +192,8 @@ export class MovimientoCajaCreateComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(){
+    if(!confirm('Se procedera a grabar la transacción, desea continuar?')) return;
+
     switch(this._accion){
       case Tipo_Accion.GRABAR:
         this.addMovimientoCaja();
@@ -206,10 +208,10 @@ export class MovimientoCajaCreateComponent implements OnInit, OnDestroy {
   addMovimientoCaja(){
     this.movimientoCajaService.addMovimientoCaja(this.movimientoCajaForm.value).subscribe(
       res => {
-        this.alertService.success('movimiento de caja registado con éxito');
+        this.notifyService.showSuccess('movimiento de caja registado con éxito', 'Sistema');
       },
       err => {
-        this.alertService.warn('Error: ' + err.error);
+        this.notifyService.showError('Error: ' + err.error, 'Sistema');
       }
     )
   }
@@ -217,9 +219,9 @@ export class MovimientoCajaCreateComponent implements OnInit, OnDestroy {
   updateMovimientoCaja(){
     this.movimientoCajaService.updateMovimientoCaja(this.movimientoCajaForm.getRawValue()).subscribe(
       res => {
-        this.alertService.success('movimiento actualizado con éxito!');
+        this.notifyService.showSuccess('movimiento actualizado con éxito!', 'Sistema');
       }, err => {
-        this.alertService.warn('Error: ' + err.error);
+        this.notifyService.showError('Error: ' + err.error, 'Sistema');
       }
     )
   }
