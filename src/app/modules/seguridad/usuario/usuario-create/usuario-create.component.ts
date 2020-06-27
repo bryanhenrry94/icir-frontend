@@ -78,6 +78,8 @@ export class UsuarioCreateComponent implements OnInit {
     switch(this._accion){
       case Tipo_Accion.GRABAR:
         this.addUser();
+
+        this.usuarioForm.reset();
       break;
 
       case Tipo_Accion.ACTUALIZAR:

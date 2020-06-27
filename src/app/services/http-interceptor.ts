@@ -5,26 +5,31 @@ import { HttpRequest } from '@angular/common/http';
 import { HttpHandler } from '@angular/common/http';
 import { HttpEvent } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
-import { SpinnerService } from './spinner.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Injectable()
 export class CustomHttpInterceptor implements HttpInterceptor {
 
-     constructor(private spinnerService: SpinnerService) { }
+     constructor(
+      private spinner: NgxSpinnerService
+      )
+      {
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+      }
 
-        this.spinnerService.show();
+      intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+        this.spinner.show();
 
         return next
             .handle(req)
             .pipe(
                 tap((event: HttpEvent<any>) => {
                     if (event instanceof HttpResponse) {
-                        this.spinnerService.hide();
+                      this.spinner.hide()
                     }
                 }, (error) => {
-                    this.spinnerService.hide();
+                  this.spinner.hide()
                 })
             );
     }

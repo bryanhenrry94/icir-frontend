@@ -1,5 +1,5 @@
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -77,6 +77,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CustomHttpInterceptor } from './services/http-interceptor';
 
 import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -143,6 +144,7 @@ import { ToastrModule } from 'ngx-toastr';
     FlexLayoutModule,
     AdminModule,
     AuthModule,
+    NgxSpinnerModule,
     ToastrModule.forRoot()
   ],
   exports:[
@@ -158,6 +160,7 @@ import { ToastrModule } from 'ngx-toastr';
     { provide: MatDialogRef, useValue: null },
 	  { provide: MAT_DIALOG_DATA, useValue: null },
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
