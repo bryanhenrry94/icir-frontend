@@ -1,5 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { EventEmitter } from 'protractor';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-admin',
@@ -14,8 +13,11 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  sideBarToggle(event: EventEmitter){
+  sideBarToggle(event: EventEmitter<any>){
     this.sideBarOpen = !this.sideBarOpen;
   }
 
+  close(){
+    this.sideBarOpen = false;
+  }
 }

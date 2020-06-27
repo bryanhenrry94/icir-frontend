@@ -2,10 +2,6 @@ mat-drawer{
   width: max-content;
 }
 
-mat-drawer-container {
-  height: 85%;
-}
-
 mat-drawer-content{
   height: max-content;
   padding: 20px;

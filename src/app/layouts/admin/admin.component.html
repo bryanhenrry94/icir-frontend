@@ -1,8 +1,8 @@
 <app-header (toggleSideBarForMe)="sideBarToggle($event)"></app-header>
 
-<mat-drawer-container>
+<mat-drawer-container style="height: 150%;">
   <mat-drawer mode="side" [opened]="sideBarOpen">
-    <app-sidebar></app-sidebar>
+    <app-sidebar (sideBarCloseForMe)="close()"></app-sidebar>
   </mat-drawer>
   <mat-drawer-content>
     <app-alert></app-alert>
@@ -10,4 +10,6 @@
   </mat-drawer-content>
 </mat-drawer-container>
 
+<!--
 <app-footer></app-footer>
+-->

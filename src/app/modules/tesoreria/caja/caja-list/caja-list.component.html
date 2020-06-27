@@ -1,76 +1,69 @@
 <div class="button-row">
-  <button mat-button routerLink="/home" routerLinkActive="active">Home</button>
-</div>
-
-<hr>
-
-<div class="button-row">
-  <button mat-raised-button color="primary" (click)="nuevo()" title="Nuevo">
+  <button mat-icon-button color="primary" (click)="nuevo()" title="Nuevo">
     <mat-icon>add_circle</mat-icon>
-    Nuevo
   </button>
 
-  <button mat-raised-button color="primary" (click)="actualizar()" [disabled]="selected==null" title="Actualizar">
+  <button mat-icon-button color="primary" (click)="actualizar()" [disabled]="selected==null" title="Actualizar">
     <mat-icon>update</mat-icon>
-    Actualizar
   </button>
 
-  <button mat-raised-button color="primary" (click)="consultar()" [disabled]="selected==null" title="Consultar">
+  <button mat-icon-button color="primary" (click)="consultar()" [disabled]="selected==null" title="Consultar">
     <mat-icon>search</mat-icon>
-    Consultar
   </button>
 
-  <button mat-raised-button color="warn" (click)="eliminar()" [disabled]="selected==null" title="Eliminar">
+  <button mat-icon-button color="warn" (click)="eliminar()" [disabled]="selected==null" title="Eliminar">
     <mat-icon>delete</mat-icon>
-    Eliminar
   </button>
 </div>
 
 <hr>
 
-<table mat-table class="mat-elevation-z8" [dataSource]="dataSource" style="width: 100%;" responsive="true">
+<div class="table-responsive">
+  <table mat-table class="mat-elevation-z8" [dataSource]="dataSource" style="width: 100%;" responsive="true">
 
-  <!-- Checkbox Column -->
-  <ng-container matColumnDef="select">
-    <th mat-header-cell *matHeaderCellDef></th>
-    <td mat-cell *matCellDef="let row">
-      <mat-checkbox (click)="$event.stopPropagation()"
-                    (change)="$event ? selectRow($event.checked, row) : null"
-                    [checked]="selection.isSelected(row)">
-      </mat-checkbox>
-    </td>
-  </ng-container>
-
-  <!-- iglesia Column -->
-  <ng-container matColumnDef="iglesia">
-    <th mat-header-cell *matHeaderCellDef> Iglesia </th>
-    <td mat-cell *matCellDef="let element"> {{element.iglesia != null ? element.iglesia.nombre : ''}} </td>
-  </ng-container>
-
-  <!-- Codigo Column -->
-  <ng-container matColumnDef="codigo">
-    <th mat-header-cell *matHeaderCellDef> Código </th>
-    <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
-  </ng-container>
-
-  <!-- nombre Column -->
-  <ng-container matColumnDef="nombre">
-    <th mat-header-cell *matHeaderCellDef> Nombre </th>
-    <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-  </ng-container>
-
-  <!-- moneda Column -->
-  <ng-container matColumnDef="moneda">
-    <th mat-header-cell *matHeaderCellDef> Moneda </th>
-    <td mat-cell *matCellDef="let element"> {{element.moneda}} </td>
-  </ng-container>
-
-    <!-- responsable Column -->
-    <ng-container matColumnDef="responsable">
-      <th mat-header-cell *matHeaderCellDef> Responsable </th>
-      <td mat-cell *matCellDef="let element"> {{element.responsable != null ? element.responsable.nombre : ''}} </td>
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selectRow($event.checked, row) : null"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </td>
     </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selectRow(!selection.isSelected(row), row)"></tr>
-</table>
+    <!-- iglesia Column -->
+    <ng-container matColumnDef="iglesia">
+      <th mat-header-cell *matHeaderCellDef> Iglesia </th>
+      <td mat-cell *matCellDef="let element"> {{element.iglesia != null ? element.iglesia.nombre : ''}} </td>
+    </ng-container>
+
+    <!-- Codigo Column -->
+    <ng-container matColumnDef="codigo">
+      <th mat-header-cell *matHeaderCellDef> Código </th>
+      <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
+    </ng-container>
+
+    <!-- nombre Column -->
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+    </ng-container>
+
+    <!-- moneda Column -->
+    <ng-container matColumnDef="moneda">
+      <th mat-header-cell *matHeaderCellDef> Moneda </th>
+      <td mat-cell *matCellDef="let element"> {{element.moneda}} </td>
+    </ng-container>
+
+      <!-- responsable Column -->
+      <ng-container matColumnDef="responsable">
+        <th mat-header-cell *matHeaderCellDef> Responsable </th>
+        <td mat-cell *matCellDef="let element"> {{element.responsable != null ? element.responsable.nombre : ''}} </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selectRow(!selection.isSelected(row), row)"></tr>
+  </table>
+
+</div>
