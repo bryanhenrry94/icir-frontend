@@ -1,34 +1,15 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <button mat-icon-button (click)="toggleSideBar()">
-      <mat-icon>menu</mat-icon>
+<mat-toolbar class="navbar navbar-light" color="primary">
+  <button mat-icon-button (click)="toggleSideBar()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <div class="row">
+    <button mat-icon-button title="Perfil">
+      <mat-icon>person_pin</mat-icon>
     </button>
 
-    <span routerLinkActive routerLink="/home">ICIR</span>
-
-    <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
-      <ul fxLayout="row" fsLayoutGap="20px">
-        <li>
-          <button mat-icon-button title="Configuración">
-            <mat-icon>settings</mat-icon>
-          </button>
-        </li>
-        <li>
-          <button mat-icon-button title="Ayuda">
-            <mat-icon>help_outline</mat-icon>
-          </button>
-        </li>
-        <li>
-          <button mat-icon-button title="Perfil">
-            <mat-icon>person_pin</mat-icon>
-          </button>
-        </li>
-        <li>
-          <button mat-icon-button (click)="authService.logout()" title="Cerrar Sesion">
-            <mat-icon>exit_to_app</mat-icon>
-          </button>
-        </li>
-      </ul>
-    </div>
-  </mat-toolbar-row>
+    <button mat-icon-button (click)="authService.logout()" title="Cerrar Sesion">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>
