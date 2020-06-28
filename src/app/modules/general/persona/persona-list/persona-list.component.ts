@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IPersona } from 'src/app/models/IPersona';
 import { MatTableDataSource } from '@angular/material/table';
 import { PersonaService } from 'src/app/services/persona.service';
@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Tipo_Accion } from 'src/app/models/Tipo_Accion';
 import { NotificationService } from 'src/app/services/notification.service';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-persona-list',
@@ -19,11 +21,18 @@ export class PersonaListComponent implements OnInit {
   selection = new SelectionModel<IPersona>(false);
   selected: IPersona;
 
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   constructor(
     private personaService: PersonaService,
     private route: Router,
     private notifyService: NotificationService
   ) { }
+
+  ngOnInit(): void {
+    this.getPersonas();
+  }
 
   nuevo(){
     this.personaService.set_accion(Tipo_Accion.GRABAR);
@@ -55,10 +64,6 @@ export class PersonaListComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.getPersonas();
-  }
-
   selectRow(checked: boolean, row: IPersona) {
     this.selected = null;
 
@@ -70,7 +75,10 @@ export class PersonaListComponent implements OnInit {
   getPersonas(){
     this.personaService.getPersonas().subscribe(
       res => {
-         this.dataSource.data = res as IPersona[];
+        this.dataSource.data = res as IPersona[];
+
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }
       , err => {
         this.notifyService.showError(err.error, 'Sistema');

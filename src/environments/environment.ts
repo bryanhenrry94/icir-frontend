@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseURL: 'https://ici-backend.herokuapp.com/api'
+  baseURL: 'http://localhost:3000/api'
 };
 
 /*
