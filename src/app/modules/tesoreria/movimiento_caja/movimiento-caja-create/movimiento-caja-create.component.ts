@@ -10,7 +10,7 @@ import { PersonaCreateComponent } from 'src/app/modules/general/persona/persona-
 import { TipoMovimientoCreateComponent } from '../../tipo_movimiento/tipo-movimiento-create/tipo-movimiento-create.component';
 import { Persona } from 'src/app/models/Persona';
 import { PersonaService } from 'src/app/services/persona.service';
-import { FormGroup, FormControl, Form, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Form, Validators, FormBuilder, NgForm } from '@angular/forms';
 import { MovimientoCajaService } from 'src/app/services/movimiento-caja.service';
 import { Subscription } from 'rxjs';
 import { Tipo_Accion } from 'src/app/models/Tipo_Accion';
@@ -55,7 +55,7 @@ export class MovimientoCajaCreateComponent implements OnInit, OnDestroy {
     public dialog: MatDialog
   )
   {
-    this._id = new FormControl({value:'', disabled: true});
+    this._id = new FormControl('');
     this.fecha = new FormControl(new Date(), Validators.required);
     this.iglesia = new FormControl('', Validators.required);
     this.caja = new FormControl('', Validators.required);
@@ -83,6 +83,8 @@ export class MovimientoCajaCreateComponent implements OnInit, OnDestroy {
 
     this.iglesia.valueChanges.subscribe(
       res => {
+        if(res == null) return;
+
         this.cajaService.getCajasByIglesia(res._id).subscribe(
           res => {
             this.cajas = res as Caja[];
@@ -191,12 +193,16 @@ export class MovimientoCajaCreateComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmit(){
+  onSubmit(form: NgForm){
     if(!confirm('Se procedera a grabar la transacción, desea continuar?')) return;
 
     switch(this._accion){
       case Tipo_Accion.GRABAR:
         this.addMovimientoCaja();
+
+        // reset form here
+        form.form.markAsPristine();
+        form.resetForm();
       break;
 
       case Tipo_Accion.ACTUALIZAR:

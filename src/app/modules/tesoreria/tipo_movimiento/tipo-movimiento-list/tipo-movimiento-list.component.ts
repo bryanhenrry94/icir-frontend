@@ -14,7 +14,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 })
 export class TipoMovimientoListComponent implements OnInit {
   ELEMENT_DATA: ITipoMovimiento[];
-  displayedColumns: string[] = ['select', 'signo', 'nombre'];
+  displayedColumns: string[] = ['select', 'codigo', 'signo', 'nombre'];
   dataSource = new MatTableDataSource<ITipoMovimiento>(this.ELEMENT_DATA);
   selection = new SelectionModel<ITipoMovimiento>(false);
   selected: ITipoMovimiento;

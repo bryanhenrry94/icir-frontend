@@ -19,8 +19,8 @@
 <hr>
 
 
-<div class="table-responsive">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;">
+<div class="table-responsive mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort style="width: 100%;">
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
@@ -74,5 +74,6 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selectRow(!selection.isSelected(row), row)"></tr>
   </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirsLastButtons></mat-paginator>
 
 </div>

@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -72,7 +72,7 @@ import { TipoMovimientoListComponent } from './modules/tesoreria/tipo_movimiento
 import { MovimientoCajaCreateComponent } from './modules/tesoreria/movimiento_caja/movimiento-caja-create/movimiento-caja-create.component';
 import { MovimientoCajaDetailComponent } from './modules/tesoreria/movimiento_caja/movimiento-caja-detail/movimiento-caja-detail.component';
 import { MovimientoCajaListComponent } from './modules/tesoreria/movimiento_caja/movimiento-caja-list/movimiento-caja-list.component';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import { CustomHttpInterceptor } from './services/http-interceptor';
 
@@ -158,7 +158,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
     MatSidenavContainer,
     { provide: MatDialogRef, useValue: null },
-	  { provide: MAT_DIALOG_DATA, useValue: null },
+    { provide: MAT_DIALOG_DATA, useValue: null },
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

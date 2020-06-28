@@ -1,4 +1,4 @@
-<form [formGroup]="movimientoCajaForm" (submit)="onSubmit()">
+<form #form="ngForm" [formGroup]="movimientoCajaForm" (submit)="onSubmit(form)">
   <mat-card>
     <mat-card-header>
       <mat-card-title>Movimiento Caja</mat-card-title>
@@ -12,7 +12,7 @@
             <mat-radio-group
             style="padding-left: 30px;"
             formControlName="signo">
-                <mat-radio-button style="padding-right: 40px;" value="+">Ingreso</mat-radio-button>
+                <mat-radio-button autofocus style="padding-right: 40px;" value="+">Ingreso</mat-radio-button>
                 <mat-radio-button value="-">Egreso</mat-radio-button>
               </mat-radio-group>
           </div>
@@ -65,10 +65,17 @@
             <div class="row">
               <mat-form-field color="accent">
                 <mat-label>Fecha</mat-label>
+                <input type="date" matInput placeholder="Fecha" formControlName="fecha">
+              </mat-form-field>
+
+              <!--
+              <mat-form-field color="accent">
+                <mat-label>Fecha</mat-label>
                 <input autocomplete="off" matInput [matDatepicker]="fecha" formControlName="fecha">
                 <mat-datepicker-toggle matSuffix [for]="fecha"></mat-datepicker-toggle>
                 <mat-datepicker #fecha></mat-datepicker>
               </mat-form-field>
+              -->
             </div>
 
             <div class="row">

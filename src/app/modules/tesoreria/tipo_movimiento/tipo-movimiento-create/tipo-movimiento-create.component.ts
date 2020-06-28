@@ -18,6 +18,7 @@ export class TipoMovimientoCreateComponent implements OnInit {
   tipoMovimientoForm: FormGroup;
   _id: FormControl;
   signo: FormControl;
+  codigo: FormControl;
   nombre: FormControl;
 
   _accion: Tipo_Accion
@@ -34,6 +35,7 @@ export class TipoMovimientoCreateComponent implements OnInit {
   {
     this._id = new FormControl('');
     this.signo = new FormControl('', Validators.required);
+    this.codigo = new FormControl('', Validators.required);
     this.nombre = new FormControl('', Validators.required);
 
     const _id = this._route.snapshot.paramMap.get('id');
@@ -59,6 +61,7 @@ export class TipoMovimientoCreateComponent implements OnInit {
     this.tipoMovimientoForm = this.fb.group({
       '_id': this._id,
       'signo': this.signo,
+      'codigo': this.codigo,
       'nombre': this.nombre
     });
   }
