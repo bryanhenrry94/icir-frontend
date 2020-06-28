@@ -193,7 +193,7 @@ export class MovimientoCajaCreateComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmit(form: NgForm){
+  onSubmit(form){
     if(!confirm('Se procedera a grabar la transacción, desea continuar?')) return;
 
     switch(this._accion){
@@ -201,7 +201,6 @@ export class MovimientoCajaCreateComponent implements OnInit, OnDestroy {
         this.addMovimientoCaja();
 
         // reset form here
-        form.form.markAsPristine();
         form.resetForm();
       break;
 
