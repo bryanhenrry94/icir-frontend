@@ -38,6 +38,10 @@ export class TipoMovimientoService {
     return this.http.get(this.URL + "/tipo_movimiento/signo/" + signo);
   }
 
+  getTipoMovimientosByCaja(_id: string){
+    return this.http.get(this.URL + "/tipo_movimiento/caja/" + _id);
+  }
+
   getTipoMovimiento(_id: string): Observable<ITipoMovimiento> {
     return this.http.get<ITipoMovimiento>(this.URL + "/tipo_movimiento/" + _id);
   }

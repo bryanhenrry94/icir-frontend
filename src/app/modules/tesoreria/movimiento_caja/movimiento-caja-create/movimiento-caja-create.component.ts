@@ -98,13 +98,9 @@ export class MovimientoCajaCreateComponent implements OnInit, OnDestroy {
 
     this.caja.valueChanges.subscribe(
       res => {
+        console.log(res._id);
 
-      }
-    )
-
-    this.signo.valueChanges.subscribe(
-      res => {
-        this.tipoMovimientoService.getTipoMovimientosBySigno(res).subscribe(
+        this.tipoMovimientoService.getTipoMovimientosByCaja(res._id).subscribe(
           res => {
             this.tipoMovimientos = res as TipoMovimiento[];
           },
@@ -112,6 +108,19 @@ export class MovimientoCajaCreateComponent implements OnInit, OnDestroy {
             this.notifyService.showError('Error: ' + err.error, 'Sistema');
           }
         )
+      }
+    )
+
+    this.signo.valueChanges.subscribe(
+      res => {
+        // this.tipoMovimientoService.getTipoMovimientosBySigno(res).subscribe(
+        //   res => {
+        //     this.tipoMovimientos = res as TipoMovimiento[];
+        //   },
+        //   err => {
+        //     this.notifyService.showError('Error: ' + err.error, 'Sistema');
+        //   }
+        // )
       }
     )
   }

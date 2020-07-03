@@ -55,7 +55,7 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <button type="button" mat-icon-button color="accent" (click)="openDialogTipoMovimientoCreate()" fxHide.xs>
+              <button type="button" mat-icon-button color="accent" (click)="openDialogTipoMovimientoCreate()">
                 <mat-icon>add_circle</mat-icon>
               </button>
             </div>
@@ -63,9 +63,13 @@
 
           <div class="col-sm-4" style="padding-right: 50px;">
             <div class="row">
-              <mat-form-field color="accent">
+              <mat-form-field >
                 <mat-label>Fecha</mat-label>
-                <input type="date" matInput placeholder="Fecha" formControlName="fecha">
+                <input matInput [matDatepicker]="picker" formControlName="fecha">
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                  <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
 
               <!--
@@ -96,7 +100,7 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <button type="button" mat-icon-button color="accent" (click)="openDialogPersonaCreate()" fxHide.xs>
+              <button type="button" mat-icon-button color="accent" (click)="openDialogPersonaCreate()">
                 <mat-icon>add_circle</mat-icon>
               </button>
             </div>

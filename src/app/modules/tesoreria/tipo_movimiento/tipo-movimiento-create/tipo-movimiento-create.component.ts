@@ -6,6 +6,9 @@ import { Tipo_Accion } from 'src/app/models/Tipo_Accion';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationService } from 'src/app/services/notification.service';
+import { ICaja } from 'src/app/models/ICaja';
+import { CajaService } from 'src/app/services/caja.service';
+import { MatListOption } from '@angular/material/list';
 
 @Component({
   selector: 'app-tipo-movimiento-create',
@@ -15,16 +18,21 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class TipoMovimientoCreateComponent implements OnInit {
   private subscription: Subscription;
 
+  List_cajas: ICaja[];
+  Caja_Selected: ICaja[];
+
   tipoMovimientoForm: FormGroup;
   _id: FormControl;
   signo: FormControl;
   codigo: FormControl;
   nombre: FormControl;
+  cajas: FormControl;
 
   _accion: Tipo_Accion
 
   constructor(
     private tipoMovimientoService: TipoMovimientoService,
+    private cajaService: CajaService,
     private notifyService : NotificationService,
     private _route: ActivatedRoute,
     private fb: FormBuilder,
@@ -37,6 +45,7 @@ export class TipoMovimientoCreateComponent implements OnInit {
     this.signo = new FormControl('', Validators.required);
     this.codigo = new FormControl('', Validators.required);
     this.nombre = new FormControl('', Validators.required);
+    this.cajas = new FormControl('');
 
     const _id = this._route.snapshot.paramMap.get('id');
 
@@ -44,6 +53,8 @@ export class TipoMovimientoCreateComponent implements OnInit {
       this.tipoMovimientoService.getTipoMovimiento(_id).subscribe(
         res => {
           this.tipoMovimientoForm.patchValue(res);
+
+          console.log(res);
         }
       )
     }
@@ -62,8 +73,15 @@ export class TipoMovimientoCreateComponent implements OnInit {
       '_id': this._id,
       'signo': this.signo,
       'codigo': this.codigo,
-      'nombre': this.nombre
+      'nombre': this.nombre,
+      'cajas': this.cajas,
     });
+
+    this.getCajas();
+  }
+
+  compareItems(i1, i2) {
+    return i1 && i2 && i1.id===i2.id;
   }
 
   onSubmit(){
@@ -104,6 +122,18 @@ export class TipoMovimientoCreateComponent implements OnInit {
       },
       err => {
         this.notifyService.showError('Error: ' + err.error, 'Sistema');
+      }
+    )
+  }
+
+  getCajas(){
+    this.cajaService.getCajas()
+    .subscribe(
+      res => {
+         this.List_cajas = res as ICaja[];
+      }
+      , err => {
+        this.notifyService.showError(err.error, 'Sistema');
       }
     )
   }

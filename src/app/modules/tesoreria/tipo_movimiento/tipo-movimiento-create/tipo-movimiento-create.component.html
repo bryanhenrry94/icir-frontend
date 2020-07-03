@@ -25,6 +25,16 @@
           </mat-form-field>
         </div>
       </div>
+
+      <mat-divider></mat-divider>
+
+      <mat-selection-list #cajas formControlName="cajas"
+      [compareWith]="compareItems">
+        <mat-list-option *ngFor="let caja of List_cajas" [value]="caja">
+          {{caja.nombre}}
+        </mat-list-option>
+      </mat-selection-list>
+
     </mat-card-content>
 
     <mat-divider></mat-divider>
