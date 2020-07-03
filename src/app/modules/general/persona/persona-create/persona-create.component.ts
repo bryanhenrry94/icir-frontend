@@ -109,15 +109,15 @@ export class PersonaCreateComponent implements OnInit, OnDestroy {
       this.identificacion.setValue('');
     }
 
-    //VALIDAR CEDULA
-    this.personaService.existeIdentificacion(identificacion).subscribe(
-      res => {
-        if(res){
-          alert('El número de identificación ya existe en la base de datos!');
-          this.identificacion.setValue('');
-        }
-      }
-    )
+    // //VALIDAR CEDULA
+    // this.personaService.existeIdentificacion(identificacion).subscribe(
+    //   res => {
+    //     if(res){
+    //       alert('El número de identificación ya existe en la base de datos!');
+    //       this.identificacion.setValue('');
+    //     }
+    //   }
+    // )
   }
 
   onSubmit(){
