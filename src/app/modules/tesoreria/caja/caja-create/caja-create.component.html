@@ -17,6 +17,7 @@
               <mat-form-field style="width: 100%;">
                 <mat-label>Iglesia</mat-label>
                 <mat-select formControlName="iglesia" [compareWith]="compareItems">
+                  <mat-option [value]="null">Ninguno</mat-option>
                   <mat-option *ngFor="let iglesia of iglesias" [value]="iglesia">
                     {{ iglesia.nombre }}
                   </mat-option>
