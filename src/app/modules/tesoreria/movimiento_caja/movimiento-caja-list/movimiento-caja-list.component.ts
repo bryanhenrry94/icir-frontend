@@ -8,6 +8,7 @@ import { Tipo_Accion } from 'src/app/models/Tipo_Accion';
 import { NotificationService } from 'src/app/services/notification.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-movimiento-caja-list',
@@ -15,6 +16,11 @@ import { MatPaginator } from '@angular/material/paginator';
   styleUrls: ['./movimiento-caja-list.component.css']
 })
 export class MovimientoCajaListComponent implements OnInit {
+
+  seachKey: string;
+  Fecha_Desde: Date;
+  Fecha_Hasta: Date;
+
   ELEMENT_DATA: IMovimientoCaja[];
   displayedColumns: string[] = ['select', 'iglesia', 'fecha', 'caja', 'signo', 'tipo_movimiento', 'persona', 'valor'];
   dataSource = new MatTableDataSource<IMovimientoCaja>(this.ELEMENT_DATA);
@@ -28,7 +34,10 @@ export class MovimientoCajaListComponent implements OnInit {
     private movimientoCajaService: MovimientoCajaService,
     private notifyService: NotificationService,
     private route: Router
-  ) { }
+  )
+  {
+
+  }
 
   nuevo(){
     this.movimientoCajaService.set_accion(Tipo_Accion.GRABAR);
@@ -72,11 +81,19 @@ export class MovimientoCajaListComponent implements OnInit {
     this.getMovimientoCajas();
   }
 
+  buscar(){
+    this.dataSource.data.map(q=> q.fecha >= this.Fecha_Desde && q.fecha <= this.Fecha_Hasta);
+  }
+
   getMovimientoCajas(){
     this.movimientoCajaService.getMovimientoCajas()
     .subscribe(
       res => {
-        this.dataSource.data = res as IMovimientoCaja[];
+        let array = res.map(item => {
+          return item;
+        });
+
+        this.dataSource.data = array;
 
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -85,5 +102,14 @@ export class MovimientoCajaListComponent implements OnInit {
         this.notifyService.showError(err.error, 'Sistema');
       }
     )
+  }
+
+  onSearchClear(){
+    this.seachKey = "";
+    this.applyFilter();
+  }
+
+  applyFilter(){
+    this.dataSource.filter = this.seachKey.trim().toLowerCase();
   }
 }

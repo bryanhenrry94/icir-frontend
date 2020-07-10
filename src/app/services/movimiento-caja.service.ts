@@ -30,8 +30,8 @@ export class MovimientoCajaService {
     return this.http.put<IMovimientoCaja>(this.URL + "/movimiento_caja/" + iglesia._id, iglesia);
   }
 
-  getMovimientoCajas(){
-    return this.http.get(this.URL + "/movimiento_caja");
+  getMovimientoCajas(): Observable<IMovimientoCaja[]>{
+    return this.http.get<IMovimientoCaja[]>(this.URL + "/movimiento_caja");
   }
 
   getMovimientoCaja(_id: string): Observable<IMovimientoCaja> {

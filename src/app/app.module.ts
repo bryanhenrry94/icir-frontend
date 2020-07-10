@@ -78,6 +78,7 @@ import { CustomHttpInterceptor } from './services/http-interceptor';
 
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { TipoMovimientoFilterPipe } from './pipes/tipo-movimiento-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     TipoMovimientoListComponent,
     MovimientoCajaCreateComponent,
     MovimientoCajaDetailComponent,
-    MovimientoCajaListComponent
+    MovimientoCajaListComponent,
+    TipoMovimientoFilterPipe
   ],
   imports: [
     BrowserModule,

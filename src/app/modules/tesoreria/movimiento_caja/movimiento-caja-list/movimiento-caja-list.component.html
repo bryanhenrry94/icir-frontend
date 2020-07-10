@@ -18,6 +18,54 @@
 
 <hr>
 
+<mat-expansion-panel hideToggle>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Filtros de Búsqueda
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <div class="container-fluid">
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Desde:</mat-label>
+        <input matInput [matDatepicker]="desde" [(ngModel)]="Fecha_Desde">
+        <mat-datepicker-toggle matSuffix [for]="desde">
+          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #desde></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Hasta:</mat-label>
+        <input matInput [matDatepicker]="hasta" [(ngModel)]="Fecha_Hasta">
+        <mat-datepicker-toggle matSuffix [for]="hasta">
+          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #hasta></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <button mat-raised-button color="primary" (click)="buscar()">
+        <mat-icon>search</mat-icon>
+        Buscar
+      </button>
+    </div>
+  </div>
+
+</mat-expansion-panel>
+
+<hr>
+
+<mat-form-field class="search-form-field" floatLabel="never">
+  <input matInput [(ngModel)]="seachKey" placeholder="Buscar" autocomplete="off" (keyup)="applyFilter()">
+  <button mat-button matSuffix mat-icon-button aria-label="Borrar" (click)="onSearchClear()">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
 
 <div class="table-responsive mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort style="width: 100%;">
@@ -37,43 +85,43 @@
     </ng-container>
 
     <ng-container matColumnDef="iglesia">
-      <th mat-header-cell *matHeaderCellDef> Iglesia </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Iglesia </th>
       <td mat-cell *matCellDef="let element"> {{element.iglesia.nombre}} </td>
     </ng-container>
 
     <ng-container matColumnDef="fecha">
-      <th mat-header-cell *matHeaderCellDef> Fecha </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
       <td mat-cell *matCellDef="let element"> {{element.fecha | date:'dd-MM-yyyy'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="caja">
-      <th mat-header-cell *matHeaderCellDef> Caja </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Caja </th>
       <td mat-cell *matCellDef="let element"> {{element.caja.nombre}} </td>
     </ng-container>
 
     <ng-container matColumnDef="signo">
-      <th mat-header-cell *matHeaderCellDef> Signo </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Signo </th>
       <td mat-cell *matCellDef="let element"> {{element.signo}} </td>
     </ng-container>
 
     <ng-container matColumnDef="tipo_movimiento">
-      <th mat-header-cell *matHeaderCellDef> Tipo Mov. </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Mov. </th>
       <td mat-cell *matCellDef="let element"> {{element.tipo_movimiento.nombre}} </td>
     </ng-container>
 
     <ng-container matColumnDef="persona">
-      <th mat-header-cell *matHeaderCellDef> Persona </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Persona </th>
       <td mat-cell *matCellDef="let element"> {{ element.persona == null ? '' : element.persona.nombres }} {{ element.persona == null ? '' : element.persona.apellidos }} </td>
     </ng-container>
 
     <ng-container matColumnDef="valor">
-      <th mat-header-cell *matHeaderCellDef> Valor </th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
       <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selectRow(!selection.isSelected(row), row)"></tr>
   </table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirsLastButtons></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" [pageSize]="10" showFirstLastButtons></mat-paginator>
 
 </div>
